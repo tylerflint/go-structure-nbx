@@ -1,3 +1,19 @@
+/*
+Copyright 2017 Nanobox, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 package dev
 
 import (
@@ -5,17 +21,17 @@ import (
   
   "github.com/spf13/cobra"
   
-  "github.com/nanobox-io/gila/cmd/nbx/config"
+  "github.com/nanobox-io/nbx/cmd/nbx/config"
 )
 
-func NewCommands(app *config.App) []*cobra.Command {
+func NewCommands() []*cobra.Command {
   return []*cobra.Command{
-    newRunCommand(app),
-    newDevCommand(app),
+    newRunCommand(),
+    newDevCommand(),
   }
 }
 
-func newRunCommand(app *config.App) *cobra.Command {
+func newRunCommand() *cobra.Command {
   return &cobra.Command{
     Use: "run",
     Short: "Run commands or a session within the dev sandbox",
@@ -25,7 +41,7 @@ func newRunCommand(app *config.App) *cobra.Command {
   }
 }
 
-func newDevCommand(app *config.App) *cobra.Command {
+func newDevCommand() *cobra.Command {
   cmd := &cobra.Command{
     Use: "dev",
     Short: "Dev sandbox management",
@@ -34,13 +50,13 @@ func newDevCommand(app *config.App) *cobra.Command {
     },
   }
   
-  cmd.AddCommand(newConsoleCommand(app))
-  cmd.AddCommand(newTunnelCommand(app))
+  cmd.AddCommand(newConsoleCommand())
+  cmd.AddCommand(newTunnelCommand())
   
   return cmd
 }
 
-func newConsoleCommand(app *config.App) *cobra.Command {
+func newConsoleCommand() *cobra.Command {
   return &cobra.Command{
     Use: "console",
     Short: "Open a console to a component within the dev sandbox",
@@ -50,7 +66,7 @@ func newConsoleCommand(app *config.App) *cobra.Command {
   }
 }
 
-func newTunnelCommand(app *config.App) *cobra.Command {
+func newTunnelCommand() *cobra.Command {
   return &cobra.Command{
     Use: "tunnel",
     Short: "Open a tunnel to a component within the dev sandbox",

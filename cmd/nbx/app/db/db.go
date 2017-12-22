@@ -14,4 +14,17 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package build
+package db
+
+import (
+  
+)
+
+type Persistable interface {
+  Set(bucket, key string, val interface{}) error
+  Get(bucket, key string, res interface{}) error
+  GetAll(bucket, res interface{}) error
+  Delete(bucket, key string) error
+  Keys(bucket) (keys []string, err error)
+  Truncate(bucket) error
+}

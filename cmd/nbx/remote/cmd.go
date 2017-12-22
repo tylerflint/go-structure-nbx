@@ -1,3 +1,19 @@
+/*
+Copyright 2017 Nanobox, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
 package remote
 
 import (
@@ -5,17 +21,17 @@ import (
   
   "github.com/spf13/cobra"
   
-  "github.com/nanobox-io/gila/cmd/nbx/config"
+  "github.com/nanobox-io/nbx/cmd/nbx/config"
 )
 
-func NewCommands(app *config.App) []*cobra.Command {
+func NewCommands() []*cobra.Command {
   return []*cobra.Command{
-    newDeployCommand(app),
-    newRemoteCommand(app),
+    newDeployCommand(),
+    newRemoteCommand(),
   }
 }
 
-func newDeployCommand(app *config.App) *cobra.Command {
+func newDeployCommand() *cobra.Command {
   return &cobra.Command{
     Use: "deploy",
     Short: "Deploy changes to a remote app",
@@ -25,23 +41,23 @@ func newDeployCommand(app *config.App) *cobra.Command {
   }
 }
 
-func newRemoteCommand(app *config.App) *cobra.Command {
+func newRemoteCommand() *cobra.Command {
   cmd := &cobra.Command{
     Use: "remote",
     Short: "Manage remote apps",
   }
   
-  cmd.AddCommand(newListCommand(app))
-  cmd.AddCommand(newAddCommand(app))
-  cmd.AddCommand(newRemoveCommand(app))
-  cmd.AddCommand(newConsoleCommand(app))
-  cmd.AddCommand(newTunnelCommand(app))
-  cmd.AddCommand(newLogCommand(app))
+  cmd.AddCommand(newListCommand())
+  cmd.AddCommand(newAddCommand())
+  cmd.AddCommand(newRemoveCommand())
+  cmd.AddCommand(newConsoleCommand())
+  cmd.AddCommand(newTunnelCommand())
+  cmd.AddCommand(newLogCommand())
   
   return cmd
 }
 
-func newListCommand(app *config.App) *cobra.Command {
+func newListCommand() *cobra.Command {
   return &cobra.Command{
     Use: "list",
     Short: "List remote apps",
@@ -51,7 +67,7 @@ func newListCommand(app *config.App) *cobra.Command {
   }
 }
 
-func newAddCommand(app *config.App) *cobra.Command {
+func newAddCommand() *cobra.Command {
   return &cobra.Command{
     Use: "add",
     Short: "Add a remote app",
@@ -61,7 +77,7 @@ func newAddCommand(app *config.App) *cobra.Command {
   }
 }
 
-func newRemoveCommand(app *config.App) *cobra.Command {
+func newRemoveCommand() *cobra.Command {
   return &cobra.Command{
     Use: "rm",
     Short: "Remove a remote app",
@@ -71,7 +87,7 @@ func newRemoveCommand(app *config.App) *cobra.Command {
   }
 }
 
-func newConsoleCommand(app *config.App) *cobra.Command {
+func newConsoleCommand() *cobra.Command {
   return &cobra.Command{
     Use: "console",
     Short: "Open a console to a component within a remote app",
@@ -81,7 +97,7 @@ func newConsoleCommand(app *config.App) *cobra.Command {
   }
 }
 
-func newTunnelCommand(app *config.App) *cobra.Command {
+func newTunnelCommand() *cobra.Command {
   return &cobra.Command{
     Use: "tunnel",
     Short: "Open a tunnel to a component within a remote app",
@@ -91,7 +107,7 @@ func newTunnelCommand(app *config.App) *cobra.Command {
   }
 }
 
-func newLogCommand(app *config.App) *cobra.Command {
+func newLogCommand() *cobra.Command {
   return &cobra.Command{
     Use: "logs",
     Short: "Stream logs from within a remote app",

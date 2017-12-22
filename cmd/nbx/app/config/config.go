@@ -14,4 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package build
+package config
+
+import (
+  
+)
+
+type Configable interface {
+  Get(key string) interface{}
+  Exists(key string) bool
+}

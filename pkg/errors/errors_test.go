@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/nanobox-io/gila/pkg/errors"
+	"github.com/nanobox-io/nbx/pkg/errors"
 )
 
 var dataEN = `

@@ -14,4 +14,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package build
+package log
+
+import (
+  
+)
+
+type Loggable interface {
+  Printf(format string, args ...interface{})
+  Trace(format string, args ...interface{})
+  Debug(format string, args ...interface{})
+  Info(format string, args ...interface{})
+  Warn(format string, args ...interface{})
+  Error(format string, args ...interface{})
+  Fatal(format string, args ...interface{})
+}

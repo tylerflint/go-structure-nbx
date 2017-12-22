@@ -14,4 +14,24 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package build
+package display
+
+import (
+  
+)
+
+type Displayable interface {
+  OpenContext(format string, args ...interface{}) error
+  CloseContext() error
+  StartTask(format string, args ...interface{}) error
+  PauseTask() error
+  ResumeTask() error
+  StopTask() error
+  ErrorTask() error
+  Info(message string, args ...interface{}) error
+  Warn(message string, args ...interface{}) error
+  Error(message string, args ...interface{}) error
+  Debug(message string, args ...interface{}) error
+  Trace(message string, args ...interface{}) error
+  
+}

@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/nanobox-io/gila/pkg/log"
+	"github.com/nanobox-io/nbx/pkg/log"
 )
 
 // TestLogging tests all the logging functions
