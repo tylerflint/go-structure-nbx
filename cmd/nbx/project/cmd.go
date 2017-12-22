@@ -17,36 +17,34 @@ limitations under the License.
 package project
 
 import (
-  "fmt"
-  
-  "github.com/spf13/cobra"
-  
-  "github.com/nanobox-io/nbx/cmd/nbx/config"
+	"fmt"
+
+	"github.com/spf13/cobra"
 )
 
 func NewCommands() []*cobra.Command {
-  return []*cobra.Command{
-    newInitCommand(),
-    newDestroyCommand(),
-  }
+	return []*cobra.Command{
+		newInitCommand(),
+		newDestroyCommand(),
+	}
 }
 
 func newInitCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "init",
-    Short: "Initialize a local project",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("init")
-    },
-  }
+	return &cobra.Command{
+		Use:   "init",
+		Short: "Initialize a local project",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("init")
+		},
+	}
 }
 
 func newDestroyCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "destroy",
-    Short: "Destroy a local project",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("destroy")
-    },
-  }
+	return &cobra.Command{
+		Use:   "destroy",
+		Short: "Destroy a local project",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("destroy")
+		},
+	}
 }

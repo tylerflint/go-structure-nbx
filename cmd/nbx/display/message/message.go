@@ -17,11 +17,11 @@ limitations under the License.
 package message
 
 import (
-  "github.com/renstrom/dedent"  
+	"github.com/renstrom/dedent"
 )
 
 func OverviewDescription() string {
-  return dedent.Dedent(`
+	return dedent.Dedent(`
     The Nanobox platform within your console.
 
                    **

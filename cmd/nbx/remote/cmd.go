@@ -17,102 +17,100 @@ limitations under the License.
 package remote
 
 import (
-  "fmt"
-  
-  "github.com/spf13/cobra"
-  
-  "github.com/nanobox-io/nbx/cmd/nbx/config"
+	"fmt"
+
+	"github.com/spf13/cobra"
 )
 
 func NewCommands() []*cobra.Command {
-  return []*cobra.Command{
-    newDeployCommand(),
-    newRemoteCommand(),
-  }
+	return []*cobra.Command{
+		newDeployCommand(),
+		newRemoteCommand(),
+	}
 }
 
 func newDeployCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "deploy",
-    Short: "Deploy changes to a remote app",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("deploy")
-    },
-  }
+	return &cobra.Command{
+		Use:   "deploy",
+		Short: "Deploy changes to a remote app",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("deploy")
+		},
+	}
 }
 
 func newRemoteCommand() *cobra.Command {
-  cmd := &cobra.Command{
-    Use: "remote",
-    Short: "Manage remote apps",
-  }
-  
-  cmd.AddCommand(newListCommand())
-  cmd.AddCommand(newAddCommand())
-  cmd.AddCommand(newRemoveCommand())
-  cmd.AddCommand(newConsoleCommand())
-  cmd.AddCommand(newTunnelCommand())
-  cmd.AddCommand(newLogCommand())
-  
-  return cmd
+	cmd := &cobra.Command{
+		Use:   "remote",
+		Short: "Manage remote apps",
+	}
+
+	cmd.AddCommand(newListCommand())
+	cmd.AddCommand(newAddCommand())
+	cmd.AddCommand(newRemoveCommand())
+	cmd.AddCommand(newConsoleCommand())
+	cmd.AddCommand(newTunnelCommand())
+	cmd.AddCommand(newLogCommand())
+
+	return cmd
 }
 
 func newListCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "list",
-    Short: "List remote apps",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("list")
-    },
-  }
+	return &cobra.Command{
+		Use:   "list",
+		Short: "List remote apps",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("list")
+		},
+	}
 }
 
 func newAddCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "add",
-    Short: "Add a remote app",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("app")
-    },
-  }
+	return &cobra.Command{
+		Use:   "add",
+		Short: "Add a remote app",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("app")
+		},
+	}
 }
 
 func newRemoveCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "rm",
-    Short: "Remove a remote app",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("remove")
-    },
-  }
+	return &cobra.Command{
+		Use:   "rm",
+		Short: "Remove a remote app",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("remove")
+		},
+	}
 }
 
 func newConsoleCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "console",
-    Short: "Open a console to a component within a remote app",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("console")
-    },
-  }
+	return &cobra.Command{
+		Use:   "console",
+		Short: "Open a console to a component within a remote app",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("console")
+		},
+	}
 }
 
 func newTunnelCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "tunnel",
-    Short: "Open a tunnel to a component within a remote app",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("tunnel")
-    },
-  }
+	return &cobra.Command{
+		Use:   "tunnel",
+		Short: "Open a tunnel to a component within a remote app",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("tunnel")
+		},
+	}
 }
 
 func newLogCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "logs",
-    Short: "Stream logs from within a remote app",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("logs")
-    },
-  }
+	return &cobra.Command{
+		Use:   "logs",
+		Short: "Stream logs from within a remote app",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("logs")
+		},
+	}
 }

@@ -17,47 +17,45 @@ limitations under the License.
 package platform
 
 import (
-  "fmt"
-  
-  "github.com/spf13/cobra"
-  
-  "github.com/nanobox-io/nbx/cmd/nbx/config"
+	"fmt"
+
+	"github.com/spf13/cobra"
 )
 
 func NewCommands() []*cobra.Command {
-  return []*cobra.Command{
-    newStartCommand(),
-    newStopCommand(),
-    newStatusCommand(),
-  }
+	return []*cobra.Command{
+		newStartCommand(),
+		newStopCommand(),
+		newStatusCommand(),
+	}
 }
 
 func newStartCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "start",
-    Short: "Start the Nanobox platform",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("start")
-    },
-  }
+	return &cobra.Command{
+		Use:   "start",
+		Short: "Start the Nanobox platform",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("start")
+		},
+	}
 }
 
 func newStopCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "stop",
-    Short: "Stop the Nanobox platform",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("stop")
-    },
-  }
+	return &cobra.Command{
+		Use:   "stop",
+		Short: "Stop the Nanobox platform",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("stop")
+		},
+	}
 }
 
 func newStatusCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "status",
-    Short: "Check the status of the Nanobox platform",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("status")
-    },
-  }
+	return &cobra.Command{
+		Use:   "status",
+		Short: "Check the status of the Nanobox platform",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("status")
+		},
+	}
 }

@@ -16,10 +16,8 @@ limitations under the License.
 
 package boxfile
 
-import (
-  
-)
+import ()
 
 func Validate(path string) bool {
-  return true
+	return true
 }

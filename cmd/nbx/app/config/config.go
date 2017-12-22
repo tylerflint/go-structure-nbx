@@ -16,11 +16,9 @@ limitations under the License.
 
 package config
 
-import (
-  
-)
+import ()
 
 type Configable interface {
-  Get(key string) interface{}
-  Exists(key string) bool
+	Get(key string) interface{}
+	Exists(key string) bool
 }

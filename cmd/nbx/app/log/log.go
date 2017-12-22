@@ -16,16 +16,14 @@ limitations under the License.
 
 package log
 
-import (
-  
-)
+import ()
 
 type Loggable interface {
-  Printf(format string, args ...interface{})
-  Trace(format string, args ...interface{})
-  Debug(format string, args ...interface{})
-  Info(format string, args ...interface{})
-  Warn(format string, args ...interface{})
-  Error(format string, args ...interface{})
-  Fatal(format string, args ...interface{})
+	Printf(format string, args ...interface{})
+	Trace(format string, args ...interface{})
+	Debug(format string, args ...interface{})
+	Info(format string, args ...interface{})
+	Warn(format string, args ...interface{})
+	Error(format string, args ...interface{})
+	Fatal(format string, args ...interface{})
 }

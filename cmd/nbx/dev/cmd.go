@@ -17,61 +17,59 @@ limitations under the License.
 package dev
 
 import (
-  "fmt"
-  
-  "github.com/spf13/cobra"
-  
-  "github.com/nanobox-io/nbx/cmd/nbx/config"
+	"fmt"
+
+	"github.com/spf13/cobra"
 )
 
 func NewCommands() []*cobra.Command {
-  return []*cobra.Command{
-    newRunCommand(),
-    newDevCommand(),
-  }
+	return []*cobra.Command{
+		newRunCommand(),
+		newDevCommand(),
+	}
 }
 
 func newRunCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "run",
-    Short: "Run commands or a session within the dev sandbox",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("deploy")
-    },
-  }
+	return &cobra.Command{
+		Use:   "run",
+		Short: "Run commands or a session within the dev sandbox",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("deploy")
+		},
+	}
 }
 
 func newDevCommand() *cobra.Command {
-  cmd := &cobra.Command{
-    Use: "dev",
-    Short: "Dev sandbox management",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("dev")
-    },
-  }
-  
-  cmd.AddCommand(newConsoleCommand())
-  cmd.AddCommand(newTunnelCommand())
-  
-  return cmd
+	cmd := &cobra.Command{
+		Use:   "dev",
+		Short: "Dev sandbox management",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("dev")
+		},
+	}
+
+	cmd.AddCommand(newConsoleCommand())
+	cmd.AddCommand(newTunnelCommand())
+
+	return cmd
 }
 
 func newConsoleCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "console",
-    Short: "Open a console to a component within the dev sandbox",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("console")
-    },
-  }
+	return &cobra.Command{
+		Use:   "console",
+		Short: "Open a console to a component within the dev sandbox",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("console")
+		},
+	}
 }
 
 func newTunnelCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "tunnel",
-    Short: "Open a tunnel to a component within the dev sandbox",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("tunnel")
-    },
-  }
+	return &cobra.Command{
+		Use:   "tunnel",
+		Short: "Open a tunnel to a component within the dev sandbox",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("tunnel")
+		},
+	}
 }

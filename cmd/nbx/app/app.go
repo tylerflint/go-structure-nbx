@@ -21,20 +21,20 @@ package app
 // is passed throughout the entire app, however in careful consideration, it
 // would require that nearly every function within the app accept the global
 // 'app' struct, which seems overkill.
-// 
+//
 // This package is designed such that all 'components' are public variables
 // that implement an interface. This enables the entire app to be testable.
-// 
+//
 // When writing tests for packages that depend on this package, you can
 // set the public variables to a mocked implementation of an interface.
 
 import (
-  "io"
-  
-  "github.com/nanobox-io/nbx/cmd/nbx/app/config"
-  "github.com/nanobox-io/nbx/cmd/nbx/app/db"
-  "github.com/nanobox-io/nbx/cmd/nbx/app/display"
-  "github.com/nanobox-io/nbx/cmd/nbx/app/log"
+	"io"
+
+	"github.com/nanobox-io/nbx/cmd/nbx/app/config"
+	"github.com/nanobox-io/nbx/cmd/nbx/app/db"
+	"github.com/nanobox-io/nbx/cmd/nbx/app/display"
+	"github.com/nanobox-io/nbx/cmd/nbx/app/log"
 )
 
 // Stdin

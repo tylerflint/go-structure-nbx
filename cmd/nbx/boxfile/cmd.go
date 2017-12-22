@@ -17,32 +17,30 @@ limitations under the License.
 package boxfile
 
 import (
-  "fmt"
-  
-  "github.com/spf13/cobra"
-  
-  "github.com/nanobox-io/nbx/cmd/nbx/config"
+	"fmt"
+
+	"github.com/spf13/cobra"
 )
 
 func NewCommands() []*cobra.Command {
-  return []*cobra.Command{
-    newValidateCommand(),
-  }
+	return []*cobra.Command{
+		newValidateCommand(),
+	}
 }
 
 func newValidateCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "validate",
-    Short: "Validate the current boxfile.yml",
-    Long: "Validate the current boxfile.yml",
-    Run: func(cmd *cobra.Command, args []string) {
-      
-      if Validate("boxfile.yml") {
-        fmt.Println("validated!")
-      } else {
-        fmt.Println("bad deal :(")
-      }
-      
-    },
-  }
+	return &cobra.Command{
+		Use:   "validate",
+		Short: "Validate the current boxfile.yml",
+		Long:  "Validate the current boxfile.yml",
+		Run: func(cmd *cobra.Command, args []string) {
+
+			if Validate("boxfile.yml") {
+				fmt.Println("validated!")
+			} else {
+				fmt.Println("bad deal :(")
+			}
+
+		},
+	}
 }

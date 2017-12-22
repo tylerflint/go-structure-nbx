@@ -16,15 +16,13 @@ limitations under the License.
 
 package db
 
-import (
-  
-)
+import ()
 
 type Persistable interface {
-  Set(bucket, key string, val interface{}) error
-  Get(bucket, key string, res interface{}) error
-  GetAll(bucket, res interface{}) error
-  Delete(bucket, key string) error
-  Keys(bucket) (keys []string, err error)
-  Truncate(bucket) error
+	Set(bucket, key string, val interface{}) error
+	Get(bucket, key string, res interface{}) error
+	GetAll(bucket, res interface{}) error
+	Delete(bucket, key string) error
+	Keys(bucket string) ([]string, error)
+	Truncate(bucket string) error
 }

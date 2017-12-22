@@ -17,36 +17,34 @@ limitations under the License.
 package user
 
 import (
-  "fmt"
-  
-  "github.com/spf13/cobra"
-  
-  "github.com/nanobox-io/nbx/cmd/nbx/config"
+	"fmt"
+
+	"github.com/spf13/cobra"
 )
 
 func NewCommands() []*cobra.Command {
-  return []*cobra.Command{
-    newLoginCommand(),
-    newLogoutCommand(),
-  }
+	return []*cobra.Command{
+		newLoginCommand(),
+		newLogoutCommand(),
+	}
 }
 
 func newLoginCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "login",
-    Short: "Login to the Nanobox platform",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("login")
-    },
-  }
+	return &cobra.Command{
+		Use:   "login",
+		Short: "Login to the Nanobox platform",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("login")
+		},
+	}
 }
 
 func newLogoutCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "logout",
-    Short: "Logout of the Nanobox platform",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("logout")
-    },
-  }
+	return &cobra.Command{
+		Use:   "logout",
+		Short: "Logout of the Nanobox platform",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("logout")
+		},
+	}
 }

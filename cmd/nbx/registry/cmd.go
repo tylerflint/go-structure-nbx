@@ -17,58 +17,56 @@ limitations under the License.
 package registry
 
 import (
-  "fmt"
-  
-  "github.com/spf13/cobra"
-  
-  "github.com/nanobox-io/nbx/cmd/nbx/config"
+	"fmt"
+
+	"github.com/spf13/cobra"
 )
 
 func NewCommands() []*cobra.Command {
-  return []*cobra.Command{
-    newRegistryCommand(),
-  }
+	return []*cobra.Command{
+		newRegistryCommand(),
+	}
 }
 
 func newRegistryCommand() *cobra.Command {
-  cmd := &cobra.Command{
-    Use: "registry",
-    Short: "Remote docker registry management",
-  }
-  
-  cmd.AddCommand(newListCommand())
-  cmd.AddCommand(newAddCommand())
-  cmd.AddCommand(newRemoveCommand())
-  
-  return cmd
+	cmd := &cobra.Command{
+		Use:   "registry",
+		Short: "Remote docker registry management",
+	}
+
+	cmd.AddCommand(newListCommand())
+	cmd.AddCommand(newAddCommand())
+	cmd.AddCommand(newRemoveCommand())
+
+	return cmd
 }
 
 func newListCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "ls",
-    Short: "List remote registries",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("list")
-    },
-  }
+	return &cobra.Command{
+		Use:   "ls",
+		Short: "List remote registries",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("list")
+		},
+	}
 }
 
 func newAddCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "add",
-    Short: "Add a remote registry",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("add")
-    },
-  }
+	return &cobra.Command{
+		Use:   "add",
+		Short: "Add a remote registry",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("add")
+		},
+	}
 }
 
 func newRemoveCommand() *cobra.Command {
-  return &cobra.Command{
-    Use: "rm",
-    Short: "Remove a remote registry",
-    Run: func(cmd *cobra.Command, args []string) {
-      fmt.Println("remove")
-    },
-  }
+	return &cobra.Command{
+		Use:   "rm",
+		Short: "Remove a remote registry",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("remove")
+		},
+	}
 }
