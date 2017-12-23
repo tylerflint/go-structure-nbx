@@ -22,7 +22,7 @@ import (
 
 	"github.com/spf13/cobra"
 
-	// "github.com/nanobox-io/nbx/cmd/nbx/app"
+	"github.com/nanobox-io/nbx/cmd/nbx/app"
 	"github.com/nanobox-io/nbx/cmd/nbx/boxfile"
 	"github.com/nanobox-io/nbx/cmd/nbx/build"
 	"github.com/nanobox-io/nbx/cmd/nbx/dev"
@@ -36,6 +36,12 @@ import (
 )
 
 func main() {
+  // setup the global app env
+	if err := app.SetupEnv(); err != nil {
+		fmt.Fprintf(os.Stderr, "error: Failed to setup app env: %v\n", err)
+		os.Exit(1)
+	}
+	
 	// parse config
 
 	// setup logger
