@@ -34,6 +34,7 @@ import (
 	"github.com/nanobox-io/nbx/cmd/nbx/app/config"
 	"github.com/nanobox-io/nbx/cmd/nbx/app/db"
 	"github.com/nanobox-io/nbx/cmd/nbx/app/display"
+	"github.com/nanobox-io/nbx/cmd/nbx/app/env"
 	"github.com/nanobox-io/nbx/cmd/nbx/app/log"
 )
 
@@ -45,6 +46,9 @@ var Out io.Writer
 
 // Stderr
 var Err io.Writer
+
+// Env
+var Env env.Envable
 
 // Logger
 var Log log.Loggable
