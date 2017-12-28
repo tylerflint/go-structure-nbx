@@ -20,95 +20,50 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/spf13/cobra"
-
 	"github.com/nanobox-io/nbx/cmd/nbx/app"
 	"github.com/nanobox-io/nbx/cmd/nbx/app/env"
-	"github.com/nanobox-io/nbx/cmd/nbx/boxfile"
-	"github.com/nanobox-io/nbx/cmd/nbx/build"
-	"github.com/nanobox-io/nbx/cmd/nbx/dev"
-	"github.com/nanobox-io/nbx/cmd/nbx/display/message"
-	"github.com/nanobox-io/nbx/cmd/nbx/dryrun"
-	"github.com/nanobox-io/nbx/cmd/nbx/platform"
-	"github.com/nanobox-io/nbx/cmd/nbx/project"
-	"github.com/nanobox-io/nbx/cmd/nbx/registry"
-	"github.com/nanobox-io/nbx/cmd/nbx/remote"
-	"github.com/nanobox-io/nbx/cmd/nbx/user"
+	"github.com/nanobox-io/nbx/cmd/nbx/app/log"
 )
 
 func main() {
-  // setup the global app env
+	var err error
+	
+  // bootstrap the global app env
 	app.Env = env.NewSystemEnv()
 	if err := app.Env.Bootstrap(); err != nil {
 		fmt.Fprintf(os.Stderr, "error: Failed to bootstrap app env: %v\n", err)
 		os.Exit(1)
 	}
 	
-	// init config
-
+  // set the global dir
+	app.GlobalDir, err = app.Env.GlobalDir()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "error: Unable to determine global dir for app: %v\n", err)
+		os.Exit(1)
+	}
+	
 	// init logger
-
+	app.Log = log.NewFileLogger(fmt.Sprintf("%s/nbx.log", app.GlobalDir))
+	app.Log.SetLevel(log.Trace)
+	if err := app.Log.Open(); err != nil {
+		fmt.Fprintf(os.Stderr, "error: Failed to open log: %v\n", err)
+		os.Exit(1)
+	}
+	
 	// init db
+	
+	// init config
 
 	// init display
 
 	// setup commands
-	nbx := &cobra.Command{
-		Use:   "nbx",
-		Short: "nbx: Nanobox within your console",
-		Long:  message.OverviewDescription(),
-	}
-
-	// add boxfile commands
-	for _, cmd := range boxfile.NewCommands() {
-		nbx.AddCommand(cmd)
-	}
-
-	// add build commands
-	for _, cmd := range build.NewCommands() {
-		nbx.AddCommand(cmd)
-	}
-
-	// add dev commands
-	for _, cmd := range dev.NewCommands() {
-		nbx.AddCommand(cmd)
-	}
-
-	// add dryrun commands
-	for _, cmd := range dryrun.NewCommands() {
-		nbx.AddCommand(cmd)
-	}
-
-	// add project commands
-	for _, cmd := range project.NewCommands() {
-		nbx.AddCommand(cmd)
-	}
-	//
-	// add platform commands
-	for _, cmd := range platform.NewCommands() {
-		nbx.AddCommand(cmd)
-	}
-
-	// add registry commands
-	for _, cmd := range registry.NewCommands() {
-		nbx.AddCommand(cmd)
-	}
-
-	// add remote commands
-	for _, cmd := range remote.NewCommands() {
-		nbx.AddCommand(cmd)
-	}
-
-	// add user commands
-	for _, cmd := range user.NewCommands() {
-		nbx.AddCommand(cmd)
-	}
-
+	nbx := newNbxCommand()
+	
 	// run
 	if err := nbx.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
 	}
-
+	
 	os.Exit(0)
 }

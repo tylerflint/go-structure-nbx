@@ -25,6 +25,9 @@ fmt:
 		
 test:
 	@go test -cover $(go list ./... | grep -v /vendor/)
+	
+coverage:
+	go tool cover -html=coverage.out -o coverage.html
 
 guard-%:
 	@ if [ "${${*}}" = "" ]; then \

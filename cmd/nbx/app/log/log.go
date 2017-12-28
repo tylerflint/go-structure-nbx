@@ -16,14 +16,68 @@ limitations under the License.
 
 package log
 
-import ()
+type level uint32
 
-type Loggable interface {
-	Printf(format string, args ...interface{})
+type Logger interface {
+	Opener
+	Closer
+	LevelSetter
+	Tracer
+	Debugger
+	Infoer
+	Warner
+	Errorer
+	Fataler
+}
+
+type Opener interface {
+	Open() error
+}
+
+type Closer interface {
+	Close() error
+}
+
+type LevelSetter interface {
+	SetLevel(l level)
+}
+
+type Tracer interface {
 	Trace(format string, args ...interface{})
+}
+
+type Debugger interface {
 	Debug(format string, args ...interface{})
+}
+
+type Infoer interface {
 	Info(format string, args ...interface{})
+}
+
+type Warner interface {
 	Warn(format string, args ...interface{})
+}
+
+type Errorer interface {
 	Error(format string, args ...interface{})
+}
+
+type Fataler interface {
 	Fatal(format string, args ...interface{})
 }
+
+const (
+	// Fatal level. Logs. Used for critical errors.
+	Fatal level = iota
+	// Error level. Logs. Used for errors that should definitely be noted.
+	Error
+	// Warn level. Non-critical entries that deserve eyes.
+	Warn
+	// Info level. General operational entries about what's going on inside the
+	// application.
+	Info
+	// Debug level. Usually only enabled when debugging. Very verbose logging.
+	Debug
+	// Trace level. Usually only enabled when debugging. Very very verbose logging.
+	Trace
+)

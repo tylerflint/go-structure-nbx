@@ -51,7 +51,7 @@ var Err io.Writer
 var Env env.Envable
 
 // Logger
-var Log log.Loggable
+var Log log.Logger
 
 // DB
 var DB db.Persistable
@@ -61,3 +61,6 @@ var Config config.Configable
 
 // Display
 var Display display.Displayable
+
+// Global Directory
+var GlobalDir string
