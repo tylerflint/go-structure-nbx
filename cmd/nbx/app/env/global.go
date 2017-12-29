@@ -17,33 +17,33 @@ limitations under the License.
 package env
 
 import (
-  "fmt"
-  "path/filepath"
+	"fmt"
+	"path/filepath"
 )
 
 type GlobalDirDetector interface {
-  GlobalDir() (string, error)
+	GlobalDir() (string, error)
 }
 
 type SystemGlobalDirDetector struct {
-  HomedirDetector
+	HomedirDetector
 }
 
 func NewSystemGlobalDirDetector() *SystemGlobalDirDetector {
-  return &SystemGlobalDirDetector{
-    NewSystemHomedirDetector(),
-  }
+	return &SystemGlobalDirDetector{
+		NewSystemHomedirDetector(),
+	}
 }
 
 func (s SystemGlobalDirDetector) GlobalDir() (string, error) {
-  	// set Home based off the users homedir (~)
-  	path, err := s.Homedir()
-  	if err != nil {
-  		return "", fmt.Errorf("Unable to determine homedir: %v", err)
-  	}
-  
-    // generate the final path to ~/.nbx
-  	globalDir := filepath.ToSlash(filepath.Join(path, ".nbx"))
-    
-    return globalDir, nil
+	// set Home based off the users homedir (~)
+	path, err := s.Homedir()
+	if err != nil {
+		return "", fmt.Errorf("Unable to determine homedir: %v", err)
+	}
+
+	// generate the final path to ~/.nbx
+	globalDir := filepath.ToSlash(filepath.Join(path, ".nbx"))
+
+	return globalDir, nil
 }

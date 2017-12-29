@@ -17,23 +17,23 @@ limitations under the License.
 package env
 
 import (
-  "os"
+	"os"
 )
 
 type DirCreator interface {
-  Mkdir(dir string, perms os.FileMode) error
+	Mkdir(dir string, perms os.FileMode) error
 }
 
 type SystemDirCreator struct {
-  mkdirAllFunc func(dir string, perms os.FileMode) error
+	mkdirAllFunc func(dir string, perms os.FileMode) error
 }
 
 func NewSystemDirCreator() *SystemDirCreator {
-  return &SystemDirCreator{
-    mkdirAllFunc: os.MkdirAll,
-  }
+	return &SystemDirCreator{
+		mkdirAllFunc: os.MkdirAll,
+	}
 }
 
 func (s SystemDirCreator) Mkdir(dir string, perms os.FileMode) error {
-  return s.mkdirAllFunc(dir, perms)
+	return s.mkdirAllFunc(dir, perms)
 }

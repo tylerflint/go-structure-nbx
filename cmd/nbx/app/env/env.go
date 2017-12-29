@@ -19,18 +19,18 @@ package env
 import ()
 
 type Envable interface {
-  GlobalDirDetector
-  Bootstraper
+	GlobalDirDetector
+	Bootstraper
 }
 
 type SystemEnv struct {
-  GlobalDirDetector
-  Bootstraper
+	GlobalDirDetector
+	Bootstraper
 }
 
 func NewSystemEnv() *SystemEnv {
-  return &SystemEnv{
-    NewSystemGlobalDirDetector(),
-    NewSystemBootstraper(),
-  }
+	return &SystemEnv{
+		NewSystemGlobalDirDetector(),
+		NewSystemBootstraper(),
+	}
 }

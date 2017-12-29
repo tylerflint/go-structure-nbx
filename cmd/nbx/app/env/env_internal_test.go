@@ -17,21 +17,21 @@ limitations under the License.
 package env
 
 import (
-  "testing"
+	"testing"
 )
 
 func TestNewSystemEnv(t *testing.T) {
-  envable := NewSystemEnv()
-  
-  if envable == nil {
-    t.Errorf("SystemEnv{} should not be nil")
-  }
-  
-  if envable.GlobalDirDetector == nil {
-    t.Errorf("GlobalDirDetector should not be nil")
-  }
-  
-  if envable.Bootstraper == nil {
-    t.Errorf("Bootstraper should not be nil")
-  }
+	envable := NewSystemEnv()
+
+	if envable == nil {
+		t.Errorf("SystemEnv{} should not be nil")
+	}
+
+	if envable.GlobalDirDetector == nil {
+		t.Errorf("GlobalDirDetector should not be nil")
+	}
+
+	if envable.Bootstraper == nil {
+		t.Errorf("Bootstraper should not be nil")
+	}
 }

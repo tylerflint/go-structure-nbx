@@ -17,51 +17,51 @@ limitations under the License.
 package env
 
 import (
-  "testing"
-  "errors"
+	"errors"
+	"testing"
 )
 
 type FakeHomedirDetector struct {
-  Dir string
-  Err error
+	Dir string
+	Err error
 }
 
 func (f FakeHomedirDetector) Homedir() (string, error) {
-  return f.Dir, f.Err
+	return f.Dir, f.Err
 }
 
 func TestSystemGlobalDir(t *testing.T) {
-  tmp := &FakeHomedirDetector{"/tmp/", nil}
-  tmpGlobal := &SystemGlobalDirDetector{tmp}
-  
-  dir, err := tmpGlobal.GlobalDir()
-  if err != nil {
-    t.Errorf("Err should be nil, got: %v", err)
-  }
-  if dir != "/tmp/.nbx" {
-    t.Errorf("Was expecting dir to be '/tmp/.nbx', got: %s", dir)
-  }
+	tmp := &FakeHomedirDetector{"/tmp/", nil}
+	tmpGlobal := &SystemGlobalDirDetector{tmp}
 
-  bad := &FakeHomedirDetector{"", errors.New("broken")}
-  badGlobal := &SystemGlobalDirDetector{bad}
-  
-  dir, err = badGlobal.GlobalDir()
-  if err == nil {
-    t.Errorf("Was not expecting err to be nil")
-  }
-  if dir != "" {
-    t.Errorf("Was expecting dir to be empty, got: %s", dir)
-  }
+	dir, err := tmpGlobal.GlobalDir()
+	if err != nil {
+		t.Errorf("Err should be nil, got: %v", err)
+	}
+	if dir != "/tmp/.nbx" {
+		t.Errorf("Was expecting dir to be '/tmp/.nbx', got: %s", dir)
+	}
+
+	bad := &FakeHomedirDetector{"", errors.New("broken")}
+	badGlobal := &SystemGlobalDirDetector{bad}
+
+	dir, err = badGlobal.GlobalDir()
+	if err == nil {
+		t.Errorf("Was not expecting err to be nil")
+	}
+	if dir != "" {
+		t.Errorf("Was expecting dir to be empty, got: %s", dir)
+	}
 }
 
 func TestNewSystemGlobalDirDetector(t *testing.T) {
-  detector := NewSystemGlobalDirDetector()
-  
-  if detector == nil {
-    t.Errorf("SystemGlobalDirDetector{} should not be nil")
-  }
-  
-  if detector.HomedirDetector == nil {
-    t.Errorf("HomedirDetector should not be nil")
-  }
+	detector := NewSystemGlobalDirDetector()
+
+	if detector == nil {
+		t.Errorf("SystemGlobalDirDetector{} should not be nil")
+	}
+
+	if detector.HomedirDetector == nil {
+		t.Errorf("HomedirDetector should not be nil")
+	}
 }

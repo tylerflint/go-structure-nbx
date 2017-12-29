@@ -17,38 +17,38 @@ limitations under the License.
 package log
 
 import (
-  "fmt"
-  "time"
+	"fmt"
+	"time"
 )
 
 type Formatter interface {
-  Format(level, format string) string
+	Format(level, format string) string
 }
 
 type basicFormatter struct {
-  // The date format. If not set, timestamp is not printed.
-  Date string
+	// The date format. If not set, timestamp is not printed.
+	Date string
 }
 
 func newBasicFormatter() *basicFormatter {
-  return &basicFormatter{
-    Date: "2006-01-02 15:04:05.00000",
-  }
+	return &basicFormatter{
+		Date: "2006-01-02 15:04:05.00000",
+	}
 }
 
 func (b basicFormatter) Format(level, format string) string {
-  // prefix the format with the level (TRACE, INFO, etc)
-  format = fmt.Sprintf("%5s  %s", level, format)
-  
-  // Add a newline if it's missing
-  if format[len(format)-1] != '\n' {
-    format += "\n"
-  }
-  
-  // add a date if configured
-  if b.Date != "" {
-    format = fmt.Sprintf("%s %s", time.Now().UTC().Format(b.Date), format)
-  }
-  
-  return format
+	// prefix the format with the level (TRACE, INFO, etc)
+	format = fmt.Sprintf("%5s  %s", level, format)
+
+	// Add a newline if it's missing
+	if format[len(format)-1] != '\n' {
+		format += "\n"
+	}
+
+	// add a date if configured
+	if b.Date != "" {
+		format = fmt.Sprintf("%s %s", time.Now().UTC().Format(b.Date), format)
+	}
+
+	return format
 }

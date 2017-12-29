@@ -17,59 +17,59 @@ limitations under the License.
 package log
 
 import (
-  "fmt"
-  "os"
+	"fmt"
+	"os"
 )
 
 // let's create a interface scoped to exactly what we need
 type FileWriterCloser interface {
-  Write(b []byte) (n int, err error)
-  Close() error
+	Write(b []byte) (n int, err error)
+	Close() error
 }
 
 type FileLogger struct {
-  Path string
-  
-  // open file handle
-  file FileWriterCloser
-  
-  // function to open a file as an io.Writer
-  fsOpenFunc func(name string, flag int, perm os.FileMode) (*os.File, error)
-  
-  // Embed a baseLogger
-  *baseLogger
+	Path string
+
+	// open file handle
+	file FileWriterCloser
+
+	// function to open a file as an io.Writer
+	fsOpenFunc func(name string, flag int, perm os.FileMode) (*os.File, error)
+
+	// Embed a baseLogger
+	*baseLogger
 }
 
 func NewFileLogger(path string) *FileLogger {
-  return &FileLogger{
-    Path: path,
-    fsOpenFunc: os.OpenFile,
-    baseLogger: newBaseLogger(),
-  }
+	return &FileLogger{
+		Path:       path,
+		fsOpenFunc: os.OpenFile,
+		baseLogger: newBaseLogger(),
+	}
 }
 
 func (logger *FileLogger) Open() error {
-  file, err := logger.fsOpenFunc(logger.Path, os.O_RDWR|os.O_CREATE, 0666)
-  
-  if err != nil {
-    return fmt.Errorf("Unable to open file (%s) for writing: %v", logger.Path, err)
-  }
-  
-  // set the handle to be able to close later
-  logger.file = file
-  
-  // create a new printer with the log handle as the out
-  printer := newFmtPrinter()
-  printer.Out = file
-  logger.Printer = printer
-  
-  return nil
+	file, err := logger.fsOpenFunc(logger.Path, os.O_RDWR|os.O_CREATE, 0666)
+
+	if err != nil {
+		return fmt.Errorf("Unable to open file (%s) for writing: %v", logger.Path, err)
+	}
+
+	// set the handle to be able to close later
+	logger.file = file
+
+	// create a new printer with the log handle as the out
+	printer := newFmtPrinter()
+	printer.Out = file
+	logger.Printer = printer
+
+	return nil
 }
 
 func (logger FileLogger) Close() error {
-  if err := logger.file.Close(); err != nil {
-    return fmt.Errorf("Failed to close file (%s): %v", logger.Path, err)
-  }
-  
-  return nil
+	if err := logger.file.Close(); err != nil {
+		return fmt.Errorf("Failed to close file (%s): %v", logger.Path, err)
+	}
+
+	return nil
 }

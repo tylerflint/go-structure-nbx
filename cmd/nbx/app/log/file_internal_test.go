@@ -17,93 +17,93 @@ limitations under the License.
 package log
 
 import (
-  "errors"
-  "os"
-  "reflect"
-  "testing"
+	"errors"
+	"os"
+	"reflect"
+	"testing"
 )
 
 type FakeFileWriterCloser struct {
-  err error
+	err error
 }
 
 func (f FakeFileWriterCloser) Close() error {
-  return f.err
+	return f.err
 }
 
 func (f FakeFileWriterCloser) Write(b []byte) (n int, err error) {
-  return len(b), nil
+	return len(b), nil
 }
 
 func TestNewFileLogger(t *testing.T) {
-  logger := NewFileLogger("/tmp")
-  
-  if logger == nil {
-    t.Errorf("Logger should not be nil")
-  }
-  
-  if logger.Path == "" {
-    t.Errorf("Path should not be empty")
-  }
-  
-  if logger.fsOpenFunc == nil {
-    t.Errorf("Openfunc should not be nil")
-  }
-  
-  if logger.baseLogger == nil {
-    t.Errorf("baseLogger should not be nil")
-  }
+	logger := NewFileLogger("/tmp")
+
+	if logger == nil {
+		t.Errorf("Logger should not be nil")
+	}
+
+	if logger.Path == "" {
+		t.Errorf("Path should not be empty")
+	}
+
+	if logger.fsOpenFunc == nil {
+		t.Errorf("Openfunc should not be nil")
+	}
+
+	if logger.baseLogger == nil {
+		t.Errorf("baseLogger should not be nil")
+	}
 }
 
 func TestFileOpen(t *testing.T) {
-  errOpener := &FileLogger{
-    Path: "/tmp",
-    fsOpenFunc: func(name string, flag int, perm os.FileMode) (*os.File, error) {
-      return nil, errors.New("Bad permissions")
-    },
-  }
-  
-  if err := errOpener.Open(); err == nil {
-    t.Errorf("Should bubble up an error")
-  }
-  
-  file := &os.File{}
-  okOpener :=&FileLogger{
-    Path: "/tmp",
-    fsOpenFunc: func(name string, flag int, perm os.FileMode) (*os.File, error) {
-      return file, nil
-    },
-    baseLogger: newBaseLogger(),
-  }
-  
-  err := okOpener.Open()
-  if err != nil {
-    t.Errorf("Was not expecting an error, got: %v", err)
-  }
-  
-  if !reflect.DeepEqual(okOpener.file, file) {
-    t.Errorf("File was not set properly")
-  }
+	errOpener := &FileLogger{
+		Path: "/tmp",
+		fsOpenFunc: func(name string, flag int, perm os.FileMode) (*os.File, error) {
+			return nil, errors.New("Bad permissions")
+		},
+	}
+
+	if err := errOpener.Open(); err == nil {
+		t.Errorf("Should bubble up an error")
+	}
+
+	file := &os.File{}
+	okOpener := &FileLogger{
+		Path: "/tmp",
+		fsOpenFunc: func(name string, flag int, perm os.FileMode) (*os.File, error) {
+			return file, nil
+		},
+		baseLogger: newBaseLogger(),
+	}
+
+	err := okOpener.Open()
+	if err != nil {
+		t.Errorf("Was not expecting an error, got: %v", err)
+	}
+
+	if !reflect.DeepEqual(okOpener.file, file) {
+		t.Errorf("File was not set properly")
+	}
 }
 
 func TestFileClose(t *testing.T) {
-  errCloser := &FileLogger{
-    file: &FakeFileWriterCloser{
-      err: errors.New("Bad filehandle"),
-    },
-  }
-  
-  okCloser := &FileLogger{
-    file: &FakeFileWriterCloser{
-      err: nil,
-    },
-  }
-  
-  if err := errCloser.Close(); err == nil {
-    t.Errorf("Error should not be nil")
-  }
-  
-  if err := okCloser.Close(); err != nil {
-    t.Errorf("Was expecting err to be nil, got: %v", err)
-  }
+	errCloser := &FileLogger{
+		file: &FakeFileWriterCloser{
+			err: errors.New("Bad filehandle"),
+		},
+	}
+
+	okCloser := &FileLogger{
+		file: &FakeFileWriterCloser{
+			err: nil,
+		},
+	}
+
+	if err := errCloser.Close(); err == nil {
+		t.Errorf("Error should not be nil")
+	}
+
+	if err := okCloser.Close(); err != nil {
+		t.Errorf("Was expecting err to be nil, got: %v", err)
+	}
 }

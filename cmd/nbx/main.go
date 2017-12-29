@@ -27,21 +27,21 @@ import (
 
 func main() {
 	var err error
-	
-  // bootstrap the global app env
+
+	// bootstrap the global app env
 	app.Env = env.NewSystemEnv()
 	if err := app.Env.Bootstrap(); err != nil {
 		fmt.Fprintf(os.Stderr, "error: Failed to bootstrap app env: %v\n", err)
 		os.Exit(1)
 	}
-	
-  // set the global dir
+
+	// set the global dir
 	app.GlobalDir, err = app.Env.GlobalDir()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "error: Unable to determine global dir for app: %v\n", err)
 		os.Exit(1)
 	}
-	
+
 	// init logger
 	app.Log = log.NewFileLogger(fmt.Sprintf("%s/nbx.log", app.GlobalDir))
 	app.Log.SetLevel(log.Trace)
@@ -49,21 +49,21 @@ func main() {
 		fmt.Fprintf(os.Stderr, "error: Failed to open log: %v\n", err)
 		os.Exit(1)
 	}
-	
+
 	// init db
-	
+
 	// init config
 
 	// init display
 
 	// setup commands
 	nbx := newNbxCommand()
-	
+
 	// run
 	if err := nbx.Execute(); err != nil {
 		fmt.Fprintf(os.Stderr, "error: %v\n", err)
 		os.Exit(1)
 	}
-	
+
 	os.Exit(0)
 }

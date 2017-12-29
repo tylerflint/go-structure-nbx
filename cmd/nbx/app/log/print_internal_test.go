@@ -17,35 +17,35 @@ limitations under the License.
 package log
 
 import (
-  "bytes"
-  "testing"
+	"bytes"
+	"testing"
 )
 
 func TestNewFmtPrinter(t *testing.T) {
-  printer := newFmtPrinter()
-  
-  if printer == nil {
-    t.Errorf("Printer should not be nil")
-  }
-  
-  if printer.Out == nil {
-    t.Errorf("Out should not be nil")
-  }
+	printer := newFmtPrinter()
+
+	if printer == nil {
+		t.Errorf("Printer should not be nil")
+	}
+
+	if printer.Out == nil {
+		t.Errorf("Out should not be nil")
+	}
 }
 
 func TestFmtPrint(t *testing.T) {
-  var b bytes.Buffer
-  
-  printer := &fmtPrinter{
-    Out: &b,
-  }
-  
-  name := "Mickey"
-  printer.Print("Hello %s", name)
-  
-  res := b.String()
-  
-  if res != "Hello Mickey" {
-    t.Errorf("Expected 'Hello Mickey', got: %s", res)
-  }
+	var b bytes.Buffer
+
+	printer := &fmtPrinter{
+		Out: &b,
+	}
+
+	name := "Mickey"
+	printer.Print("Hello %s", name)
+
+	res := b.String()
+
+	if res != "Hello Mickey" {
+		t.Errorf("Expected 'Hello Mickey', got: %s", res)
+	}
 }

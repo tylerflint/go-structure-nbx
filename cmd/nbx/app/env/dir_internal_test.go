@@ -17,19 +17,19 @@ limitations under the License.
 package env
 
 import (
-  "testing"
-  "os"
+	"os"
+	"testing"
 )
 
 func TestSystemMkdir(t *testing.T) {
-  creator := &SystemDirCreator{
-    mkdirAllFunc: func(dir string, perms os.FileMode) error {
-      return nil
-    },
-  }
-  
-  err := creator.Mkdir("/tmp", 0755)
-  if err != nil {
-    t.Errorf("Was expecting err to be nil, got: %v")
-  }
+	creator := &SystemDirCreator{
+		mkdirAllFunc: func(dir string, perms os.FileMode) error {
+			return nil
+		},
+	}
+
+	err := creator.Mkdir("/tmp", 0755)
+	if err != nil {
+		t.Errorf("Was expecting err to be nil, got: %v")
+	}
 }

@@ -17,60 +17,60 @@ limitations under the License.
 package env
 
 import (
-  "errors"
-  "os"
-  "reflect"
-  "testing"
+	"errors"
+	"os"
+	"reflect"
+	"testing"
 )
 
 type FakeGlobalDirDetector struct {
-  Dir string
-  Err error
+	Dir string
+	Err error
 }
 
 func (f FakeGlobalDirDetector) GlobalDir() (string, error) {
-  return f.Dir, f.Err
+	return f.Dir, f.Err
 }
 
 type FakeDirCreator struct {
-  Err error
+	Err error
 }
 
 func (f FakeDirCreator) Mkdir(dir string, perms os.FileMode) error {
-  return f.Err
+	return f.Err
 }
 
 func TestSystemBootstrap(t *testing.T) {
-  cases := []struct {
-    globalDirDetector GlobalDirDetector
-    dirCreator        DirCreator
-    expectedErr       error
-  }{
-    {
-      globalDirDetector:  FakeGlobalDirDetector{"/tmp", nil},
-      dirCreator:         FakeDirCreator{nil},
-      expectedErr:        nil,
-    },
-    {
-      globalDirDetector:  FakeGlobalDirDetector{
-        Dir: "", 
-        Err: errors.New("something broke"),
-      },
-      dirCreator:         FakeDirCreator{nil},
-      expectedErr:        errors.New("Unable to determine global dir: something broke"),
-    },
-    {
-      globalDirDetector:  FakeGlobalDirDetector{"/tmp", nil},
-      dirCreator:         FakeDirCreator{errors.New("bad permissions")},
-      expectedErr:        errors.New("Failed to create dir (/tmp): bad permissions"),
-    },
-  }
-  
-  for _, c := range cases {
-    bootstrapper := &SystemBootstraper{c.globalDirDetector, c.dirCreator}
-    err := bootstrapper.Bootstrap()
-    if !reflect.DeepEqual(err, c.expectedErr) {
-      t.Errorf("Expected err to be %q but it was %q", c.expectedErr, err)
-    }
-  }
+	cases := []struct {
+		globalDirDetector GlobalDirDetector
+		dirCreator        DirCreator
+		expectedErr       error
+	}{
+		{
+			globalDirDetector: FakeGlobalDirDetector{"/tmp", nil},
+			dirCreator:        FakeDirCreator{nil},
+			expectedErr:       nil,
+		},
+		{
+			globalDirDetector: FakeGlobalDirDetector{
+				Dir: "",
+				Err: errors.New("something broke"),
+			},
+			dirCreator:  FakeDirCreator{nil},
+			expectedErr: errors.New("Unable to determine global dir: something broke"),
+		},
+		{
+			globalDirDetector: FakeGlobalDirDetector{"/tmp", nil},
+			dirCreator:        FakeDirCreator{errors.New("bad permissions")},
+			expectedErr:       errors.New("Failed to create dir (/tmp): bad permissions"),
+		},
+	}
+
+	for _, c := range cases {
+		bootstrapper := &SystemBootstraper{c.globalDirDetector, c.dirCreator}
+		err := bootstrapper.Bootstrap()
+		if !reflect.DeepEqual(err, c.expectedErr) {
+			t.Errorf("Expected err to be %q but it was %q", c.expectedErr, err)
+		}
+	}
 }

@@ -17,27 +17,27 @@ limitations under the License.
 package log
 
 import (
-  "fmt"
-  "io"
-  "os"
+	"fmt"
+	"io"
+	"os"
 )
 
 type Printer interface {
-  Print(format string, args ...interface{})
+	Print(format string, args ...interface{})
 }
 
 type fmtPrinter struct {
-  Out io.Writer
+	Out io.Writer
 }
 
 // Create a new FmtPrinter to print to stderr
 func newFmtPrinter() *fmtPrinter {
-  return &fmtPrinter{
-    Out: os.Stderr,
-  }
+	return &fmtPrinter{
+		Out: os.Stderr,
+	}
 }
 
 // Print will use the 'fmt' package to print a message to Out
 func (p fmtPrinter) Print(format string, args ...interface{}) {
-  fmt.Fprintf(p.Out, format, args...)
+	fmt.Fprintf(p.Out, format, args...)
 }

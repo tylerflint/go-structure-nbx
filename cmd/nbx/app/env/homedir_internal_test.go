@@ -17,31 +17,31 @@ limitations under the License.
 package env
 
 import (
-  "testing"
+	"testing"
 )
 
 func TestSystemHomedir(t *testing.T) {
-  detector := &SystemHomedirDetector{
-    homeDirFunc: func() (string, error) {
-      return "/tmp", nil
-    },
-  }
-  
-  dir, err := detector.Homedir()
-  
-  if err != nil {
-    t.Errorf("Error should be nil, got: %v", err)
-  }
-  
-  if dir != "/tmp" {
-    t.Errorf("Was expecting /tmp, got: %v", dir)
-  }
+	detector := &SystemHomedirDetector{
+		homeDirFunc: func() (string, error) {
+			return "/tmp", nil
+		},
+	}
+
+	dir, err := detector.Homedir()
+
+	if err != nil {
+		t.Errorf("Error should be nil, got: %v", err)
+	}
+
+	if dir != "/tmp" {
+		t.Errorf("Was expecting /tmp, got: %v", dir)
+	}
 }
 
 func TestNewSystemHomedirDetector(t *testing.T) {
-  detector := NewSystemHomedirDetector()
-  
-  if detector == nil {
-    t.Errorf("SystemHomedirDetector{} should not be nil")
-  }
+	detector := NewSystemHomedirDetector()
+
+	if detector == nil {
+		t.Errorf("SystemHomedirDetector{} should not be nil")
+	}
 }

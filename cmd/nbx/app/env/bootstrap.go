@@ -17,35 +17,35 @@ limitations under the License.
 package env
 
 import (
-  "fmt"
+	"fmt"
 )
 
 type Bootstraper interface {
-  Bootstrap() error
+	Bootstrap() error
 }
 
 type SystemBootstraper struct {
-  GlobalDirDetector
-  DirCreator
+	GlobalDirDetector
+	DirCreator
 }
 
 func NewSystemBootstraper() *SystemBootstraper {
-  return &SystemBootstraper{
-    NewSystemGlobalDirDetector(),
-    NewSystemDirCreator(),
-  }
+	return &SystemBootstraper{
+		NewSystemGlobalDirDetector(),
+		NewSystemDirCreator(),
+	}
 }
 
 // Bootstrap the app environment (global dir, permissions, log files, etc)
 func (s SystemBootstraper) Bootstrap() error {
-  globalDir, err := s.GlobalDir()
-  if err != nil {
-    return fmt.Errorf("Unable to determine global dir: %v", err)
-  }
-  
-  if err := s.Mkdir(globalDir, 0755); err != nil {
-    return fmt.Errorf("Failed to create dir (%s): %v", globalDir, err)
-  }
-  
-  return nil
+	globalDir, err := s.GlobalDir()
+	if err != nil {
+		return fmt.Errorf("Unable to determine global dir: %v", err)
+	}
+
+	if err := s.Mkdir(globalDir, 0755); err != nil {
+		return fmt.Errorf("Failed to create dir (%s): %v", globalDir, err)
+	}
+
+	return nil
 }

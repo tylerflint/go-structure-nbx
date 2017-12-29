@@ -17,24 +17,24 @@ limitations under the License.
 package env
 
 import (
-  "github.com/mitchellh/go-homedir"
+	"github.com/mitchellh/go-homedir"
 )
 
 type HomedirDetector interface {
-  Homedir() (string, error)
+	Homedir() (string, error)
 }
 
 type SystemHomedirDetector struct {
-  homeDirFunc func() (string, error)
+	homeDirFunc func() (string, error)
 }
 
 func NewSystemHomedirDetector() *SystemHomedirDetector {
-  return &SystemHomedirDetector{
-    homeDirFunc: homedir.Dir,
-  }
+	return &SystemHomedirDetector{
+		homeDirFunc: homedir.Dir,
+	}
 }
 
 // Detect the homedir from the system
 func (s SystemHomedirDetector) Homedir() (string, error) {
-  return s.homeDirFunc()
+	return s.homeDirFunc()
 }
